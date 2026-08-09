@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elías Agustín Rodríguez — EA Solutions</title>
+<meta name="description" content="Ingeniero en Nanotecnología. EA Solutions: desarrollo de software a medida, redes, CCTV y punto de venta. Tecámac, Estado de México.">
+<meta name="theme-color" content="#070B14">
+<meta property="og:title" content="Elías Agustín Rodríguez — EA Solutions">
+<meta property="og:description" content="Tecnología que resuelve problemas reales.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tarjeta.easolutions.mx">
+<meta property="og:image" content="https://tarjeta.easolutions.mx/logo-light.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#070B14;
+  --panel:#0D1422;
+  --cian:#22D3EE;
+  --cian-suave:#7FE7F6;
+  --claro:#E7EDF6;
+  --tenue:#8494AC;
+  --vidrio:rgba(255,255,255,.045);
+  --borde:rgba(255,255,255,.09);
+  --texto:"Poppins",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  min-height:100dvh;background:var(--noche);color:var(--claro);
+  font-family:var(--texto);display:flex;align-items:center;justify-content:center;
+  padding:22px 16px calc(22px + env(safe-area-inset-bottom));
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+/* retícula + halo, como en el sitio */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(34,211,238,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.055) 1px, transparent 1px);
+  background-size:74px 74px;
+  mask-image:radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 78%);
+  -webkit-mask-image:radial-gradient(70% 60% at 50% 40%, #000 20%, transparent 78%);
+}
+body::after{
+  content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(32% 26% at 28% 20%, rgba(34,211,238,.20), transparent 70%),
+    radial-gradient(34% 28% at 78% 78%, rgba(34,211,238,.10), transparent 72%);
+  filter:blur(26px);
+  animation:deriva 24s ease-in-out infinite alternate;
+}
+@keyframes deriva{to{transform:translate3d(-2%,2%,0) scale(1.1)}}
+
+.tarjeta{
+  position:relative;z-index:1;width:100%;max-width:400px;
+  background:linear-gradient(170deg, rgba(18,27,44,.92), rgba(8,12,22,.96));
+  border:1px solid var(--borde);border-radius:26px;padding:22px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 40px 90px -42px rgba(0,0,0,.95), 0 1px 0 rgba(255,255,255,.07) inset;
+  opacity:0;transform:translateY(14px);animation:subir .7s cubic-bezier(.2,.8,.3,1) forwards;
+}
+@keyframes subir{to{opacity:1;transform:none}}
+
+/* barra superior: logo + estado */
+.barra{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{width:132px;height:auto;display:block}
+.estado{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+  border:1px solid var(--borde);background:var(--vidrio);
+  font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--tenue);white-space:nowrap;
+}
+.estado i{width:6px;height:6px;border-radius:50%;background:#2BD97C;display:block;box-shadow:0 0 8px #2BD97C}
+
+/* identidad */
+.identidad{margin-top:24px}
+h1{font-size:26px;font-weight:600;line-height:1.14;letter-spacing:-.025em}
+h1 b{font-weight:600;color:var(--cian)}
+.rol{margin-top:7px;font-size:13px;color:var(--tenue);line-height:1.4}
+.lugar{
+  margin-top:11px;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:#6E7E97;
+}
+.lugar svg{width:11px;height:11px;color:var(--cian)}
+
+.etiqueta{
+  margin:22px 0 10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:#5F7085;
+}
+.chips{display:flex;flex-wrap:wrap;gap:7px;list-style:none}
+.chips li{
+  font-size:11.5px;padding:6px 11px;border-radius:999px;
+  background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.22);color:#A9E6F3;
+}
+
+/* acciones */
+.acciones{display:grid;gap:8px}
+.accion{
+  display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+  padding:13px 14px;border-radius:15px;cursor:pointer;
+  font-family:var(--texto);font-size:14px;font-weight:500;color:var(--claro);
+  background:var(--vidrio);border:1px solid var(--borde);
+  transition:transform .14s ease, background .22s ease, border-color .22s ease;
+}
+.accion:hover{background:rgba(255,255,255,.085);border-color:rgba(34,211,238,.35)}
+.accion:active{transform:scale(.985)}
+.accion .icono{width:36px;height:36px;border-radius:11px;flex:none;display:grid;place-items:center}
+.accion .icono svg{width:17px;height:17px}
+.accion small{display:block;font-weight:400;font-size:10.5px;color:var(--tenue);margin-top:2px;letter-spacing:.01em}
+.accion .flecha{margin-left:auto;color:#4E5E76;font-size:15px}
+.wa .icono{background:rgba(37,211,102,.14);color:#2BD97C}
+.tel .icono{background:rgba(34,211,238,.14);color:var(--cian)}
+.mail .icono{background:rgba(255,255,255,.07);color:#B9C7DA}
+
+.guardar{
+  margin-top:8px;width:100%;padding:15px;border:0;border-radius:15px;cursor:pointer;
+  font-family:var(--texto);font-size:14px;font-weight:600;color:#03151A;
+  background:var(--cian);
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .14s ease, filter .2s ease, box-shadow .2s ease;
+  box-shadow:0 12px 30px -14px rgba(34,211,238,.8);
+}
+.guardar:hover{filter:brightness(1.08)}
+.guardar:active{transform:scale(.985)}
+.guardar svg{width:17px;height:17px}
+
+.pie{
+  margin-top:18px;padding-top:15px;border-top:1px solid var(--borde);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.pie p{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#4E5E76;line-height:1.6}
+.qr-btn{
+  flex:none;display:flex;align-items:center;gap:7px;cursor:pointer;
+  padding:9px 13px;border-radius:11px;font-family:var(--mono);font-size:10.5px;
+  background:var(--vidrio);border:1px solid var(--borde);color:var(--claro);
+  transition:background .2s ease,border-color .2s ease;
+}
+.qr-btn:hover{background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.4)}
+.qr-btn svg{width:14px;height:14px}
+
+/* panel QR */
+.panel{
+  position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;
+  background:rgba(4,7,14,.82);backdrop-filter:blur(10px);
+}
+.panel.abierto{display:flex}
+.panel-caja{
+  width:100%;max-width:336px;border-radius:24px;padding:22px;text-align:center;
+  background:linear-gradient(170deg,#111B2C,#080D18);
+  border:1px solid var(--borde);animation:subir .35s cubic-bezier(.2,.8,.3,1);
+}
+.panel-caja h2{font-size:16px;font-weight:600}
+.panel-caja > p{font-size:11.5px;color:var(--tenue);margin-top:5px}
+.marco{margin:18px auto 0;width:208px;padding:13px;border-radius:16px;background:#fff}
+.marco img,.marco canvas{display:block;width:100%;height:auto}
+.liga{
+  margin-top:15px;width:100%;padding:11px;border-radius:11px;
+  background:rgba(0,0,0,.32);border:1px solid var(--borde);
+  color:var(--claro);font-family:var(--mono);font-size:10.5px;text-align:center;
+}
+.panel-acciones{margin-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini{
+  padding:12px;border-radius:12px;cursor:pointer;border:1px solid var(--borde);
+  background:var(--vidrio);color:var(--claro);font-family:var(--mono);font-size:10.5px;
+}
+.mini.cian{background:var(--cian);color:#03151A;border-color:transparent;font-weight:500}
+.cerrar{margin-top:12px;background:none;border:0;color:var(--tenue);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+
+.aviso{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,26px);z-index:60;
+  opacity:0;pointer-events:none;display:flex;align-items:center;gap:9px;
+  padding:12px 17px;border-radius:13px;background:#0C1728;
+  border:1px solid rgba(34,211,238,.45);font-size:13px;
+  box-shadow:0 20px 50px -22px #000;transition:opacity .25s ease, transform .25s ease;
+}
+.aviso.visible{opacity:1;transform:translate(-50%,0)}
+.aviso svg{width:16px;height:16px;color:var(--cian)}
+
+:focus-visible{outline:2px solid var(--cian);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*,*::after{animation:none !important;transition:none !important}.tarjeta{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<main class="tarjeta">
+
+  <div class="barra">
+    <!-- Logo EA Solutions -->
+    <img class="logo" src="logo-light.png" alt="EA Solutions" width="132">
+
+    <span class="estado"><i></i> DISPONIBLE</span>
+  </div>
+
+  <div class="identidad">
+    <h1>Elías Agustín<br><b>Rodríguez</b></h1>
+    <p class="rol">Ing. en Nanotecnología · Fundador de EA Solutions</p>
+    <span class="lugar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+      TECÁMAC, EDO. MÉX.
+    </span>
+  </div>
+
+  <p class="etiqueta">Servicios</p>
+  <ul class="chips">
+    <li>Software a medida</li>
+    <li>Automatización con IA</li>
+    <li>Redes y fibra óptica</li>
+    <li>CCTV</li>
+    <li>Punto de venta</li>
+  </ul>
+
+  <p class="etiqueta">Contáctame</p>
+  <div class="acciones">
+    <button class="accion wa" id="btnWa">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.3-5.2A8.4 8.4 0 1 1 21 11.5Z"/></svg></span>
+      <span>WhatsApp<small>Guarda mi número y abre el chat</small></span>
+      <span class="flecha">→</span>
+    </button>
+
+    <button class="accion tel" id="btnTel">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 5-2.2 1.4a12 12 0 0 0 5.8 5.8L16 13l5 1.5v3a2.5 2.5 0 0 1-2.8 2.5A17 17 0 0 1 3.5 5.8 2.5 2.5 0 0 1 6.5 3Z"/></svg></span>
+      <span id="txtTel">Teléfono<small>Guarda mi número y marca</small></span>
+      <span class="flecha">→</span>
+    </button>
+
+    <button class="accion mail" id="btnMail">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3 7.5 9 5.5 9-5.5"/></svg></span>
+      <span>Correo<small>elias.rodriguez.soluciones@gmail.com</small></span>
+      <span class="flecha">→</span>
+    </button>
+
+    <button class="accion mail" id="btnSitio">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg></span>
+      <span>Sitio web<small>easolutions.mx</small></span>
+      <span class="flecha">→</span>
+    </button>
+  </div>
+
+  <button class="guardar" id="btnGuardar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11"/><path d="m7.5 11 4.5 4 4.5-4"/><path d="M5 20h14"/></svg>
+    Guardar contacto
+  </button>
+
+  <div class="pie">
+    <p>Cert. 90000 fibra óptica y cobre<br>Experiencia ISO 9001:2015</p>
+    <button class="qr-btn" id="btnQr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM19 19h2v2h-2z"/></svg>
+      Compartir
+    </button>
+  </div>
+</main>
+
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Compartir tarjeta">
+  <div class="panel-caja">
+    <h2>Comparte tu tarjeta</h2>
+    <p>Escanea el código para abrir este perfil</p>
+    <div class="marco"><div id="qr"></div></div>
+    <input class="liga" id="inputLiga" type="url" spellcheck="false" aria-label="Liga de la tarjeta">
+    <div class="panel-acciones">
+      <button class="mini" id="btnCopiar">Copiar liga</button>
+      <button class="mini cian" id="btnPng">Descargar QR</button>
+    </div>
+    <button class="cerrar" id="btnCerrar">Cerrar</button>
+  </div>
+</div>
+
+<div class="aviso" id="aviso" role="status" aria-live="polite">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>
+  <span id="avisoTexto">Contacto guardado</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ═══ EDITA AQUÍ TUS DATOS ═══════════════════════════════ */
+const DATOS = {
+  nombre:   "Elías Agustín",
+  apellido: "Rodríguez",
+  puesto:   "Ing. en Nanotecnología · Fundador",
+  empresa:  "EA Solutions",
+  correo:   "elias.rodriguez.soluciones@gmail.com",
+  sitio:    "https://easolutions.mx",
+  ciudad:   "Tecámac, Estado de México",
+
+  telefono:    "+52 55 2570 0254",   // como se muestra en la tarjeta
+  telefonoRaw: "+525525700254",      // mismo número, sin espacios
+  whatsapp:    "525525700254",       // solo dígitos, con 52 al inicio
+
+  url:      "https://tarjeta.easolutions.mx",   // ← a dónde apunta el QR
+  mensaje:  "Hola Elías, vi tu tarjeta digital y quiero cotizar un servicio."
+};
+/* ════════════════════════════════════════════════════════ */
+
+const $ = id => document.getElementById(id);
+$("txtTel").innerHTML = DATOS.telefono + "<small>Guarda mi número y marca</small>";
+
+function vcard(){
+  return [
+    "BEGIN:VCARD","VERSION:3.0",
+    "N:" + DATOS.apellido + ";" + DATOS.nombre + ";;;",
+    "FN:" + DATOS.nombre + " " + DATOS.apellido,
+    "ORG:" + DATOS.empresa,
+    "TITLE:" + DATOS.puesto,
+    "TEL;TYPE=CELL,VOICE:" + DATOS.telefonoRaw,
+    "EMAIL;TYPE=WORK:" + DATOS.correo,
+    "URL:" + DATOS.sitio,
+    "ADR;TYPE=WORK:;;;" + DATOS.ciudad + ";;;México",
+    "NOTE:Software a medida, automatización con IA, redes, CCTV y punto de venta.",
+    "END:VCARD"
+  ].join("\r\n");
+}
+
+function guardarContacto(){
+  const a = document.createElement("a");
+  a.href = "data:text/vcard;charset=utf-8," + encodeURIComponent(vcard());
+  a.download = "Elias-Rodriguez-EA-Solutions.vcf";
+  a.rel = "noopener";
+  document.body.appendChild(a); a.click(); a.remove();
+  mostrarAviso("Contacto guardado");
+}
+
+let tAviso;
+function mostrarAviso(texto){
+  $("avisoTexto").textContent = texto;
+  const el = $("aviso");
+  el.classList.add("visible");
+  clearTimeout(tAviso);
+  tAviso = setTimeout(() => el.classList.remove("visible"), 2600);
+}
+
+function guardarYAbrir(destino){
+  guardarContacto();
+  setTimeout(() => { window.location.href = destino; }, 900);
+}
+
+$("btnWa").addEventListener("click", () =>
+  guardarYAbrir("https://wa.me/" + DATOS.whatsapp + "?text=" + encodeURIComponent(DATOS.mensaje)));
+$("btnTel").addEventListener("click", () => guardarYAbrir("tel:" + DATOS.telefonoRaw));
+$("btnMail").addEventListener("click", () =>
+  guardarYAbrir("mailto:" + DATOS.correo + "?subject=" + encodeURIComponent("Solicitud de servicio — EA Solutions")));
+$("btnSitio").addEventListener("click", () => window.open(DATOS.sitio, "_blank", "noopener"));
+$("btnGuardar").addEventListener("click", guardarContacto);
+
+/* ---- QR ---- */
+function pintarQR(){
+  const caja = $("qr");
+  caja.innerHTML = "";
+  if(typeof QRCode === "undefined"){
+    caja.innerHTML = '<p style="color:#0B1430;font:12px sans-serif;padding:20px">Conéctate a internet para generar el QR</p>';
+    return;
+  }
+  new QRCode(caja, {
+    text: $("inputLiga").value.trim() || DATOS.url,
+    width:640, height:640,
+    colorDark:"#070B14", colorLight:"#FFFFFF",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+$("inputLiga").value = DATOS.url;
+$("inputLiga").addEventListener("input", () => { clearTimeout(window._q); window._q = setTimeout(pintarQR, 400); });
+
+$("btnQr").addEventListener("click", () => { $("panel").classList.add("abierto"); pintarQR(); });
+$("btnCerrar").addEventListener("click", () => $("panel").classList.remove("abierto"));
+$("panel").addEventListener("click", e => { if(e.target === $("panel")) $("panel").classList.remove("abierto"); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") $("panel").classList.remove("abierto"); });
+
+$("btnCopiar").addEventListener("click", async () => {
+  try{ await navigator.clipboard.writeText($("inputLiga").value.trim()); mostrarAviso("Liga copiada"); }
+  catch{ mostrarAviso("Copia la liga manualmente"); }
+});
+
+$("btnPng").addEventListener("click", async () => {
+  const fuente = $("qr").querySelector("canvas") || $("qr").querySelector("img");
+  if(!fuente) return;
+  try{ await document.fonts.ready; }catch{}
+
+  const L = document.createElement("canvas");
+  L.width = 800; L.height = 1000;
+  const c = L.getContext("2d");
+  const g = c.createLinearGradient(0,0,800,1000);
+  g.addColorStop(0,"#0E1726"); g.addColorStop(1,"#060A12");
+  c.fillStyle = g; c.fillRect(0,0,800,1000);
+
+  c.fillStyle = "#FFFFFF";
+  c.beginPath(); c.roundRect(100,190,600,600,28); c.fill();
+  c.drawImage(fuente, 130, 220, 540, 540);
+
+  c.textAlign = "center";
+  c.fillStyle = "#22D3EE";
+  c.font = '500 22px "JetBrains Mono", monospace';
+  c.fillText("EA SOLUTIONS", 400, 90);
+  c.fillStyle = "#FFFFFF";
+  c.font = '600 40px "Poppins", sans-serif';
+  c.fillText(DATOS.nombre + " " + DATOS.apellido, 400, 146);
+  c.fillStyle = "#8494AC";
+  c.font = '400 24px "Poppins", sans-serif';
+  c.fillText("Escanea para guardar mi contacto", 400, 862);
+  c.fillStyle = "#5F7085";
+  c.font = '400 20px "JetBrains Mono", monospace';
+  c.fillText($("inputLiga").value.trim().replace(/^https?:\/\//,""), 400, 906);
+
+  L.toBlob(async blob => {
+    const archivo = new File([blob], "QR-EA-Solutions.png", {type:"image/png"});
+    if(navigator.canShare && navigator.canShare({files:[archivo]})){
+      try{ await navigator.share({files:[archivo], title:"Mi tarjeta digital"}); return; }catch{}
+    }
+    const u = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = u; a.download = "QR-EA-Solutions.png";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 1500);
+    mostrarAviso("QR descargado");
+  }, "image/png");
+});
+</script>
+</body>
+</html>
