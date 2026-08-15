@@ -53,6 +53,19 @@ body::after{
   filter:blur(26px);
   animation:deriva 24s ease-in-out infinite alternate;
 }
+/* partículas flotantes, como en el hero del sitio */
+.particulas{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particula{
+  position:absolute;bottom:-10px;border-radius:50%;background:var(--cian);
+  box-shadow:0 0 8px var(--cian), 0 0 16px var(--cian);
+  animation:flotar linear infinite;
+}
+@keyframes flotar{
+  0%{transform:translateY(20px);opacity:0}
+  10%{opacity:var(--op,.6)}
+  90%{opacity:var(--op,.6)}
+  100%{transform:translateY(-100vh);opacity:0}
+}
 @keyframes deriva{to{transform:translate3d(-2%,2%,0) scale(1.1)}}
 
 .tarjeta{
@@ -185,6 +198,8 @@ h1 b{font-weight:600;color:var(--cian)}
 </head>
 <body>
 
+<div class="particulas" id="particulas"></div>
+
 <main class="tarjeta">
 
   <div class="barra">
@@ -295,6 +310,25 @@ const DATOS = {
 
 const $ = id => document.getElementById(id);
 $("txtTel").innerHTML = DATOS.telefono + "<small>Guarda mi número y marca</small>";
+
+/* ---- Partículas flotantes (fondo dinámico, como en el sitio) ---- */
+if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const cont = $("particulas");
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("span");
+    const size = 2 + Math.random() * 3;
+    const opacidad = 0.3 + Math.random() * 0.5;
+    p.className = "particula";
+    p.style.left = Math.random() * 100 + "%";
+    p.style.width = p.style.height = size + "px";
+    p.style.setProperty("--op", opacidad);
+    p.style.animationDelay = (-Math.random() * 18) + "s";
+    p.style.animationDuration = (14 + Math.random() * 12) + "s";
+    frag.appendChild(p);
+  }
+  cont.appendChild(frag);
+}
 
 function vcard(){
   return [
