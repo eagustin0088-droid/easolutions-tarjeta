@@ -281,6 +281,9 @@ h1 b{font-weight:600;color:var(--cian)}
     <button class="mini cian nativo" id="btnCompartirNativo" style="display:none;width:100%;margin-top:8px">
       Compartir por AirDrop / Nearby
     </button>
+    <button class="mini nativo" id="btnGrabarNfc" style="display:none;width:100%;margin-top:8px">
+      Grabar en tarjeta NFC
+    </button>
     <button class="cerrar" id="btnCerrar">Cerrar</button>
   </div>
 </div>
@@ -420,6 +423,22 @@ if (navigator.share) {
         url: $("inputLiga").value.trim() || DATOS.url
       });
     } catch {}
+  });
+}
+
+/* ---- Grabar etiqueta NFC física (Web NFC — solo Chrome/Android) ---- */
+if ("NDEFReader" in window) {
+  const btnNfc = $("btnGrabarNfc");
+  btnNfc.style.display = "block";
+  btnNfc.addEventListener("click", async () => {
+    try {
+      const ndef = new NDEFReader();
+      mostrarAviso("Acerca el teléfono a la etiqueta NFC…");
+      await ndef.write({ records: [{ recordType: "url", data: $("inputLiga").value.trim() || DATOS.url }] });
+      mostrarAviso("¡Etiqueta NFC grabada!");
+    } catch (err) {
+      mostrarAviso("No se grabó: acércate bien a la etiqueta e inténtalo de nuevo");
+    }
   });
 }
 
