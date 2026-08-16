@@ -278,6 +278,9 @@ h1 b{font-weight:600;color:var(--cian)}
       <button class="mini" id="btnCopiar">Copiar liga</button>
       <button class="mini cian" id="btnPng">Descargar QR</button>
     </div>
+    <button class="mini cian nativo" id="btnCompartirNativo" style="display:none;width:100%;margin-top:8px">
+      Compartir por AirDrop / Nearby
+    </button>
     <button class="cerrar" id="btnCerrar">Cerrar</button>
   </div>
 </div>
@@ -404,6 +407,21 @@ $("btnCopiar").addEventListener("click", async () => {
   try{ await navigator.clipboard.writeText($("inputLiga").value.trim()); mostrarAviso("Liga copiada"); }
   catch{ mostrarAviso("Copia la liga manualmente"); }
 });
+
+/* ---- Compartir nativo (AirDrop en iPhone, Nearby Share/Quick Share en Android) ---- */
+if (navigator.share) {
+  const btnNativo = $("btnCompartirNativo");
+  btnNativo.style.display = "block";
+  btnNativo.addEventListener("click", async () => {
+    try {
+      await navigator.share({
+        title: DATOS.nombre + " " + DATOS.apellido + " — " + DATOS.empresa,
+        text: "Mi tarjeta digital — " + DATOS.empresa,
+        url: $("inputLiga").value.trim() || DATOS.url
+      });
+    } catch {}
+  });
+}
 
 $("btnPng").addEventListener("click", async () => {
   const fuente = $("qr").querySelector("canvas") || $("qr").querySelector("img");
