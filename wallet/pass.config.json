@@ -1,0 +1,39 @@
+{
+  "_comentario": "Datos de la tarjeta para Apple Wallet y Google Wallet. Edita solo este archivo; los scripts de tools/ leen de aquí.",
+
+  "nombre": "Elías Agustín Rodríguez",
+  "puesto": "Ing. en Nanotecnología · Fundador",
+  "empresa": "EA Solutions",
+  "correo": "elias.rodriguez.soluciones@gmail.com",
+  "telefono": "+52 55 2570 0254",
+  "telefonoRaw": "+525525700254",
+  "whatsapp": "525525700254",
+  "sitio": "https://easolutions.mx",
+  "ciudad": "Tecámac, Estado de México",
+  "url": "https://tarjeta.easolutions.mx",
+  "servicios": "Software a medida · Automatización con IA · Redes y fibra óptica · CCTV · Punto de venta",
+
+  "colores": {
+    "fondo": "rgb(7, 11, 20)",
+    "texto": "rgb(231, 237, 246)",
+    "etiqueta": "rgb(34, 211, 238)",
+    "googleHex": "#070B14"
+  },
+
+  "apple": {
+    "_comentario": "Se obtienen en developer.apple.com → Certificates, Identifiers & Profiles.",
+    "passTypeIdentifier": "pass.mx.easolutions.tarjeta",
+    "teamIdentifier": "XXXXXXXXXX",
+    "serialNumber": "elias-rodriguez-001",
+    "salida": "tarjeta.pkpass"
+  },
+
+  "google": {
+    "_comentario": "issuerId lo da Google Wallet Business Console. La cuenta de servicio es un JSON descargado de Google Cloud.",
+    "issuerId": "3388000000000000000",
+    "claseId": "tarjeta_ea_solutions",
+    "objetoId": "elias_rodriguez_001",
+    "logoUrl": "https://tarjeta.easolutions.mx/logo-light.png",
+    "cuentaServicio": "google-service-account.json"
+  }
+}

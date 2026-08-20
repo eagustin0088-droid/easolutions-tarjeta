@@ -1,0 +1,12 @@
+# ── Secretos de Wallet: NUNCA subir al repo ───────────────
+wallet/certs/
+*.p12
+*.pem
+*.key
+google-service-account*.json
+wallet/pass.config.local.json
+
+# Salidas temporales
+tools/.build/
+.DS_Store
+wallet/google-link.txt

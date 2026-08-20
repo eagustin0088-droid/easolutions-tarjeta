@@ -1,0 +1,5 @@
+# Tipo MIME correcto para el pase de Apple Wallet.
+# Lo usan Netlify y Cloudflare Pages; GitHub Pages lo ignora (ver WALLET.md).
+/*.pkpass
+  Content-Type: application/vnd.apple.pkpass
+  Cache-Control: no-cache

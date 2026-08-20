@@ -1,0 +1,13 @@
+Imágenes opcionales del pase de Apple Wallet.
+
+Si dejas esta carpeta vacía, tools/build-pkpass.mjs arma los íconos a partir de
+logo-light.png. Para que se vean nítidos, coloca aquí:
+
+  icon.png      29×29     (obligatorio para Apple si personalizas)
+  icon@2x.png   58×58
+  icon@3x.png   87×87
+  logo.png      160×50    (se ve arriba del pase)
+  logo@2x.png   320×100
+  strip.png     375×123   (opcional, imagen de banda)
+
+Solo PNG.
